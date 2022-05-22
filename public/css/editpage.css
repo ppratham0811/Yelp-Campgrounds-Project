@@ -1,0 +1,37 @@
+
+
+#edit-camp-heading {
+    text-align: center;
+    margin: 0 0 15px 0;
+}
+
+#update-camp-form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#update-camp-form {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#update-camp-form label {
+    display: block;
+    margin: 12px 0 4px 0;
+    font-weight: bold;
+    font-size: large;
+}
+#update-campground-btn {
+    border: 1px solid rgb(0, 160, 0);
+    background-color: rgb(0, 160, 0);
+    align-self: center;
+}
+#update-camp-form textarea {
+    width: 100%;
+}
+
+#update-camp-form input {
+    width: 100%;
+}
