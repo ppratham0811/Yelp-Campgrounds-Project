@@ -1,0 +1,14 @@
+<%- layout('./layouts/boilerplate') %>
+<div id="show-page-div">
+    <h1 id="camp-title-show"><%= camp.title %></h1>
+    <h3 id="location-show">Location: <%= camp.location %></h3>
+    <img src="<%= camp.image %>" alt="" id="campground-img">
+    <p id="description-show">Description: <%= camp.description %></p>
+    <p id="price-show">Price: <%= camp.price %></p>
+    <a href="/campgrounds" id="all-campground-btn-show-link"><button id="all-campground-btn-show" class="all-campground-btn common-btn-style" >All Campgrounds</button></a>
+    <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="post">
+        <button id="delete-campground-btn" class="common-btn-style">Delete this Campground</button>
+    </form>
+    
+    <a href="/campgrounds/<%= camp._id %>/edit" id="edit-btn-show-link"><button id="edit-btn-show" class="common-btn-style">Edit this campground</button></a>
+</div>

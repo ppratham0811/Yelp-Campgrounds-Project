@@ -1,0 +1,29 @@
+<%- layout('./layouts/boilerplate') %>
+    <h1 id="edit-camp-heading">Edit camp details</h1>
+    <div id="update-camp-form-div">
+        <form action="/campgrounds/<%= camp._id %>?_method=PUT" method="post" id="update-camp-form">
+            <div>
+                <label for="title">Edit Camp title</label>
+                <input type="text" value="<%= camp.title %>" name="campground[title]" id="title">
+            </div>
+            <div>
+                <label for="price">Edit price</label>
+                <input type="text" value="<%= camp.price %>" name="campground[price]" id="price">
+            </div>
+            <div>
+                <label for="image">Edit image URL</label>
+                <input type="text" value="<%= camp.image %>" name="campground[image]" id="image">
+            </div>
+            <div>
+                <label for="location">Edit Location</label>
+                <input type="text" name="campground[location]" id="location" value="<%= camp.location %>">
+            </div>
+            <div>
+                <label for="description">Edit Description</label>
+                <textarea name="campground[description]" id="description" cols="30" rows="5"><%= camp.description %></textarea>
+            </div>
+            <button class="common-btn-style" id="update-campground-btn">Update Campground</button>
+        </form>
+        <a href="/campgrounds"><button class="all-campground-btn common-btn-style">All Campgrounds</button></a>
+    </div>
+

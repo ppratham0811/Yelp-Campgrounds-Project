@@ -1,0 +1,30 @@
+<%- layout('./layouts/boilerplate') %>
+<h1 id="new-form-page-h1">Make a new campground</h1>
+<div id="new-form-page-div">
+    <form action="/campgrounds" method="post" id="new-form-page">
+        <div>
+            <label for="title">Enter Camp title</label>
+            <input type="text" id="title" name="campground[title]">
+        </div>
+        <div>
+            <label for="location">Enter a Location</label>
+            <input type="text" id="location" name="campground[location]">
+        </div>
+        <div>
+            <label for="image">Enter Image URL</label>
+            <input type="text" id="image" name="campground[image]">
+        </div>
+        <div>
+            <label for="description">Enter Description</label>
+            <textarea name="campground[description]" id="description" cols="30" rows="5"></textarea>
+        </div>
+        <div class="input-group mb-3">
+            <label for="price">Enter Price</label>
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            <span class="input-group-text">.00</span>
+          </div>
+        <button id="add-campground-btn" class="common-btn-style">Add Campground</button>
+    </form>
+    <a href="/campgrounds" id="all-campground-btn-link"><button class="all-campground-btn common-btn-style" id="all-campground-btn-new">All Campgrounds</button></a>
+</div>
