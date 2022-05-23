@@ -7,8 +7,8 @@
 #campground-img {
     margin: 20px 0;
     text-align: center;
-    height: 80vh;
-    width: 60vw;
+    width: 100%;
+    height: auto;
 }
 
 #edit-btn-show {
@@ -20,7 +20,7 @@
     margin: auto;
 }
 #edit-btn-show-link {
-    margin: 12px auto;
+    margin: 12px 15px;
 }
 
 #delete-campground-btn {
@@ -29,6 +29,7 @@
     border-radius: 0.4em;
     padding: 10px 20px;
     color: white;
+    margin: 12px 15px;
 }
 
 #description-show {
@@ -36,7 +37,10 @@
     margin: 10px auto 10px auto;
     font-size: 1.2rem;
     font-weight: bold;
+}
 
+#all-campground-btn-show {
+    margin: 12px 15px;
 }
 
 #price-show {
@@ -44,10 +48,20 @@
     font-size: 2rem;
 }
 
-#all-campground-btn-show {
-    margin: auto;
+#buttons-show {
+    display: flex;
+    flex-direction: row;
+    justify-items: space-evenly;
 }
 
-#all-campground-btn-show-link {
-    margin: 12px auto;
+@media only screen and (max-width: 991px) {
+    #buttons-show {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #show-page-div  {
+        font-size: 1rem;
+    }
 }
