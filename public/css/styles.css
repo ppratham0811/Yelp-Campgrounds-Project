@@ -11,6 +11,7 @@
 a {
     text-decoration: none;
 }
+/* display: inline-block; */
 
 body {
     min-height: 100vh;
@@ -39,4 +40,10 @@ body {
 }
 .common-btn-style:hover {
     transform: scale(1.05,1.05);
+}
+
+@media screen and (max-width: 991px) {
+    * {
+        font-size: 0.8rem;
+    }
 }
