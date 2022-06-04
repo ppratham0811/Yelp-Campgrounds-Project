@@ -7,7 +7,7 @@
 #campground-img {
     margin: 20px 0;
     text-align: center;
-    width: 100%;
+    width: 60%;
     height: auto;
 }
 
@@ -25,7 +25,7 @@
 
 #delete-campground-btn {
     background-color: rgb(255, 68, 68);
-    border: 1px solid rgb(255,68,68);
+    border: 1px solid rgb(255, 68, 68);
     border-radius: 0.4em;
     padding: 10px 20px;
     color: white;
@@ -33,9 +33,9 @@
 }
 
 #description-show {
-    width: 70%;
+    width: 80%;
     margin: 10px auto 10px auto;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: bold;
 }
 
@@ -61,7 +61,7 @@
         justify-content: center;
         align-items: center;
     }
-    #show-page-div  {
+    #show-page-div {
         font-size: 1rem;
     }
 }
