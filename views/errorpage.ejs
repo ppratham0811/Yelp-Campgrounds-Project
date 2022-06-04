@@ -1,0 +1,7 @@
+<%- layout('./layouts/boilerplate') %>
+<div class="error-msg">
+    <h2>An Error has Occurred</h2>
+    <h4>Status: <%= err.status %></h4>
+    <h4>Message: <%= err.message %></h4>
+    <p><%= err.stack %></p>
+</div>
