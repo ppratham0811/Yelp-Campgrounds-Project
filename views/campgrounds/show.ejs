@@ -20,4 +20,29 @@
             </form>
             <a href="/campgrounds/<%= camp._id %>/edit" id="edit-btn-show-link"><button id="edit-btn-show" class="common-btn-style">Edit this campground</button></a>
         </div>
+
+        <div>
+            <h3>Leave a Review</h3>
+            <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-3 validate-form" novalidate>
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" name="review[rating]" class="form-range" id="rating" min="1" max="5">
+                </div>
+                <div class="mb-3">
+                    <label for="body" class="form-label">Review</label>
+                    <textarea name="review[body]" class="form-control" id="body" cols="30" rows="4" required></textarea>
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+
+        <% for (let review of camp.reviews){ %>
+         <div>
+             <p>Rating: <%= review.rating %></p>
+             <p>Review: <%= review.body %></p>
+             <form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+         </div>
+        <% } %>
     </div>
