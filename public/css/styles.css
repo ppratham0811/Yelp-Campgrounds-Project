@@ -2,8 +2,9 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    max-width: 1440px;
 }
 .container {
     width: 80%;
@@ -11,8 +12,6 @@
 a {
     text-decoration: none;
 }
-/* display: inline-block; */
-
 body {
     min-height: 100vh;
     display: flex;
@@ -42,13 +41,14 @@ body {
     transition: transform 0.4s ease-in-out;
 }
 .common-btn-style:hover {
-    transform: scale(1.05,1.05);
+    transform: scale(1.05, 1.05);
 }
 
 .error-msg {
     text-align: center;
     background-color: rgb(255, 128, 128);
     font-weight: bold;
+    font-size: 0.8rem;
     padding: 18px 12px;
     width: 60%;
     margin: 25px auto;
@@ -56,9 +56,22 @@ body {
     word-wrap: break-word;
 }
 
-
-@media screen and (max-width: 991px) {
-    * {
-        font-size: 0.8rem;
-    }
+#camp-image {
+    height: 200px;
+    width: 280px;
+}
+#card-body a {
+    margin: 15px 0;
+}
+#card-body {
+    padding: 10px 5px;
+}
+#card-body p {
+    margin-bottom: 10px;
+}
+#card-body small {
+    display: block;
+}
+#card {
+    border-radius: 0;
 }

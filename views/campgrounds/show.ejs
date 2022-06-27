@@ -1,48 +1,88 @@
 <%- layout('./layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/starability.css">
     <div id="show-page-div">
-        <h1 id="camp-title-show">
-            <%= camp.title %>
-        </h1>
-        <h3 id="location-show">Location:
-            <%= camp.location %>
-        </h3>
-        <img src="<%= camp.image %>" alt="" id="campground-img">
-        <p id="description-show">Description:
-            <%= camp.description %>
-        </p>
-        <p id="price-show">Price:
-            <%= camp.price %>
-        </p>
-        <div id="buttons-show">
-            <a href="/campgrounds" id="all-campground-btn-show-link"><button id="all-campground-btn-show" class="all-campground-btn common-btn-style" >All Campgrounds</button></a>
-            <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="post">
-                <button id="delete-campground-btn" class="common-btn-style">Delete this Campground</button>
-            </form>
-            <a href="/campgrounds/<%= camp._id %>/edit" id="edit-btn-show-link"><button id="edit-btn-show" class="common-btn-style">Edit this campground</button></a>
+        <div class="card">
+            <img src="<%= camp.image %>" class="card-img-top" alt="Campground images">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <%= camp.title %>
+                </h3>
+                <p class="card-text">
+                    <%= camp.description %>
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Location: <b>
+                        <%= camp.location %>
+                    </b></li>
+                <li class="list-group-item">Price: <b>
+                        <%= camp.price %>
+                    </b></li>
+                <li class="list-group-item">Author: <b>
+                        <%= camp.author.username %>
+                    </b></li>
+            </ul>
+            <div class="card-body card-body-btns">
+                <% if (currentUser && (currentUser.username===camp.author.username)) { %>
+                    <a href="/campgrounds/<%= camp._id %>/edit" id="edit-btn-show-link"><button id="edit-btn-show"
+                            class="common-btn-style">Edit</button></a>
+                    <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="post">
+                        <button id="delete-campground-btn" class="common-btn-style">Delete</button>
+                    </form>
+                    <% } %>
+            </div>
+            <a href="/campgrounds" id="all-campground-btn-show-link"><button id="all-campground-btn-show"
+                    class="all-campground-btn common-btn-style">All Campgrounds</button></a>
         </div>
 
-        <div>
-            <h3>Leave a Review</h3>
-            <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-3 validate-form" novalidate>
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <input type="range" name="review[rating]" class="form-range" id="rating" min="1" max="5">
-                </div>
-                <div class="mb-3">
-                    <label for="body" class="form-label">Review</label>
-                    <textarea name="review[body]" class="form-control" id="body" cols="30" rows="4" required></textarea>
-                </div>
-                <button class="btn btn-success">Submit</button>
-            </form>
-        </div>
 
-        <% for (let review of camp.reviews){ %>
-         <div>
-             <p>Rating: <%= review.rating %></p>
-             <p>Review: <%= review.body %></p>
-             <form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                <button class="btn btn-sm btn-danger">Delete</button>
-            </form>
-         </div>
-        <% } %>
     </div>
+
+    <section id="reviews-section">
+        <% if (currentUser) { %>
+            <div id="first-div">
+                <h3>Leave a Review</h3>
+                <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-3 validate-form" novalidate>
+                    <fieldset class="starability-grow">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                      </fieldset>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Review</label>
+                        <textarea name="review[body]" class="form-control" id="body" cols="30" rows="4"
+                            required></textarea>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <% } %>
+
+                <div id="reviews-display">
+                    <% for (let review of camp.reviews){ %>
+                        <div>
+                            <p><b><%= review.author.username %></b>
+                            </p>
+                            <p class="starability-result" data-rating="<%= review.rating %>">
+                                <%= review.rating %> stars
+                            </p>
+                            <p><%= review.body %>
+                            </p>
+                            <% if (currentUser && review.author.equals(currentUser)) { %>
+                                <form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                    method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                                <% } %>
+                        </div>
+                        <% } %>
+                </div>
+    </section>
