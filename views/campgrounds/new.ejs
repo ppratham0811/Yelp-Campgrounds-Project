@@ -1,7 +1,7 @@
 <%- layout('./layouts/boilerplate') %>
     <h1 id="new-form-page-h1">Make a new campground</h1>
     <div id="new-form-page-div">
-        <form action="/campgrounds" method="post" id="new-form-page" novalidate class="validate-form">
+        <form action="/campgrounds" method="post" id="new-form-page" novalidate class="validate-form" enctype="multipart/form-data">
             <div>
                 <label for="title">Enter Camp title</label>
                 <input type="text" id="title" name="campground[title]" class="form-control" required>
@@ -12,10 +12,8 @@
                 <input type="text" id="location" name="campground[location]" class="form-control" required>
                 <div class="valid-feedback">Looks Good!</div>
             </div>
-            <div>
-                <label for="image">Enter Image URL</label>
-                <input type="text" id="image" name="campground[image]" class="form-control" required>
-                <div class="valid-feedback">Looks Good!</div>
+            <div class="input-group mb-2 mt-4">
+                <input type="file" class="form-control" name="campground[image]" id="image" required>
             </div>
             <div>
                 <label for="description">Enter Description</label>
