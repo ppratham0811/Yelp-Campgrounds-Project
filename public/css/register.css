@@ -1,0 +1,12 @@
+.user-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.user-form {
+    width: 65%;
+    margin: 10px auto;
+}
+.user-form div label {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
