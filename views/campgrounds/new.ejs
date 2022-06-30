@@ -12,8 +12,9 @@
                 <input type="text" id="location" name="campground[location]" class="form-control" required>
                 <div class="valid-feedback">Looks Good!</div>
             </div>
-            <div class="input-group mb-2 mt-4">
-                <input type="file" class="form-control" name="campground[image]" id="image" required>
+            <div class="input-group mb-2">
+                <label for="image">Upload images</label>
+                <input type="file" class="form-control" name="image" id="image" required multiple>
             </div>
             <div>
                 <label for="description">Enter Description</label>
@@ -28,5 +29,4 @@
             </div>
             <button id="add-campground-btn" class="common-btn-style">Add Campground</button>
         </form>
-        <a href="/campgrounds" id="all-campground-btn-link"><button class="all-campground-btn common-btn-style" id="all-campground-btn-new">All Campgrounds</button></a>
     </div>
