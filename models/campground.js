@@ -4,10 +4,26 @@ const { Schema, model } = mongoose;
 
 const campgroundSchema = new Schema({
     title: String,
-    image: String,
+    images: [
+        {
+            url: String,
+            filename: String,
+        },
+    ],
     price: Number,
     description: String,
     location: String,
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+        },
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
