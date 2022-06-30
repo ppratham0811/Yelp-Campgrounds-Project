@@ -1,15 +1,18 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 const express = require("express");
 const app = express();
 const port = 3000;
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
-const Joi = require("joi");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const multer = require("multer");
 
 mongoose
     .connect("mongodb://localhost:27017/yelp-camp")
@@ -35,7 +38,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 const sessionConfig = {
     name: "yelp-campgrounds-session",
-    secret: "yelpcampgroundsprojectprathamesh",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -64,7 +67,7 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
     res.render("index");
 });
-app.use("/yelp",userRoutes);
+app.use("/yelp", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 
@@ -73,6 +76,26 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+            req.flash("error", "File size too large");
+            return res.redirect(req.originalUrl);
+        }
+
+        if (err.code === "LIMIT_FILE_COUNT") {
+            req.flash("error", "Cannot upload more than 5 images");
+            return res.redirect(req.originalUrl);
+        }
+
+        if (err.code === "LIMIT_UNEXPECTED_FILE") {
+            req.flash(
+                "error",
+                "Only jpeg, png, jpg and jfif file types are supported"
+            );
+            return res.redirect(req.originalUrl);
+        }
+    }
+
     const { message = "Something went wrong", status = 500 } = err;
     res.status(status).render("errorpage", {
         err,
