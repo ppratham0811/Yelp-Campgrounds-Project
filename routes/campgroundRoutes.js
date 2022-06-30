@@ -7,6 +7,7 @@ const {
     isCampgroundAuthor,
     deleteImages,
     checkImagesLength,
+    deleteEditPageImages,
 } = require("../middlewares");
 const campgroundControllers = require("../controllers/campgroundControllers");
 const multer = require("multer");
@@ -44,6 +45,7 @@ router
         isLoggedIn,
         isCampgroundAuthor,
         upload.array("image"),
+        deleteEditPageImages,
         checkImagesLength,
         validateCampground,
         catchAsync(campgroundControllers.putEditCampground)
