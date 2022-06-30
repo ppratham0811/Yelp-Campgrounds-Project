@@ -1,9 +1,8 @@
 const { campgroundSchema, reviewSchema } = require("./JoiSchemas.js");
 const AppError = require("./utils/AppError");
-
 const Campground = require("./models/campground");
-const User = require("./models/users");
 const Review = require("./models/review");
+const { s3Delete } = require("./aws");
 
 function validateCampground(req, res, next) {
     const { error } = campgroundSchema.validate(req.body);
@@ -28,6 +27,7 @@ function validateReview(req, res, next) {
 function isLoggedIn(req, res, next) {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
+        // console.log(req.session.returnTo);
         req.flash("error", "You must be logged in!");
         return res.redirect("/yelp/login");
     }
@@ -64,10 +64,42 @@ async function isReviewAuthor(req, res, next) {
     res.redirect(`/campgrounds/${id}`);
 }
 
+const checkImagesLength = async (req, res, next) => {
+    const id = req.params.id;
+    const camp = await Campground.findById(id);
+    if (camp) {
+        if (camp.images.length + req.files.length > 5) {
+            req.flash("error", "Max no. of images allowed is 5");
+            res.redirect(`/campgrounds/${id}/edit`);
+        } else {
+            next();
+        }
+    } else {
+        req.flash("error", "Campground doesnt exist");
+        res.redirect("/campgrounds");
+    }
+};
+
+const deleteImages = async (req, res, next) => {
+    const { id } = req.params;
+    const camp = await Campground.findById(id);
+    if (camp) {
+        for (let img of camp.images) {
+            await s3Delete(img.filename);
+        }
+        next();
+    } else {
+        req.flash("error", "Couldn't find that campground");
+        return res.redirect("/campgrounds");
+    }
+};
+
 module.exports = {
     validateCampground,
     validateReview,
     isLoggedIn,
     isCampgroundAuthor,
     isReviewAuthor,
+    checkImagesLength,
+    deleteImages,
 };
