@@ -10,8 +10,9 @@
                 <label for="price">Edit price</label>
                 <input type="text" value="<%= camp.price %>" class="form-control" name="campground[price]" id="price" required>
             </div>
-            <div class="input-group mb-2 mt-4">
-                <input type="file" class="form-control" name="campground[image]" id="image" required>
+            <div class="input-group mb-2">
+                <label for="image">Upload images</label>
+                <input type="file" class="form-control" name="image" id="image" required multiple>
             </div>
             <div>
                 <label for="location">Edit Location</label>
@@ -23,5 +24,4 @@
             </div>
             <button class="common-btn-style" id="update-campground-btn">Update Campground</button>
         </form>
-        <a href="/campgrounds"><button class="all-campground-btn common-btn-style">All Campgrounds</button></a>
     </div>
