@@ -4,6 +4,9 @@ const Review = require("../models/review");
 const User = require("../models/users");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
+const mapboxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapboxToken = "pk.eyJ1IjoidGh1bmRlcmdvZDgxMSIsImEiOiJjbDR5OXFlbDIwODkxM2NwOGtldjJ0b2U3In0.frP2kjqNsRV78zEGBbofAw";
+const geocoder = mapboxGeocoding({ accessToken: mapboxToken });
 
 mongoose
     .connect("mongodb://localhost:27017/yelp-camp")
@@ -33,14 +36,27 @@ const seedDB = async () => {
         const lenDescriptors = descriptors.length;
         const pickRandomPlace = Math.floor(Math.random() * lenPlaces);
         const pickRandomDesc = Math.floor(Math.random() * lenDescriptors);
+        const location = `${cities[random1000].city}, ${cities[random1000].state}`;
+        const geoData = await geocoder
+            .forwardGeocode({
+                query: location,
+                limit: 1,
+            })
+            .send();
+
+        const url = "https://source.unsplash.com/collection/483251";
+        const filename = "unsplash-images";
+        const image = [{url, filename}];
         const c = new Campground({
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            location,
             price,
             description: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos, ut! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas, molestias.`,
             title: `${descriptors[pickRandomDesc]} ${places[pickRandomPlace]}`,
-            image: "https://source.unsplash.com/collection/483251",
+            images: image,
             author: await User.findOne({ username: "tim" }),
+            geometry: geoData.body.features[0].geometry,
         });
+
         await c.save();
     }
 };
