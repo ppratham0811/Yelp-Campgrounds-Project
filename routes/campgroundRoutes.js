@@ -5,17 +5,32 @@ const {
     validateCampground,
     isLoggedIn,
     isCampgroundAuthor,
+    deleteImages,
+    checkImagesLength,
 } = require("../middlewares");
 const campgroundControllers = require("../controllers/campgroundControllers");
-// const multer = require('multer');
-// const { storage } = require('../cloudinary');
-// const upload = multer({ storage });
+const multer = require("multer");
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.split("/")[0] === "image") {
+        cb(null, true);
+    } else {
+        cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
+    }
+};
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 1050000000, files: 5 },
+});
 
 router
     .route("/")
     .get(catchAsync(campgroundControllers.getAllCampgrounds))
     .post(
         isLoggedIn,
+        upload.array("image"),
         validateCampground,
         catchAsync(campgroundControllers.makeNewCampground)
     );
@@ -28,12 +43,15 @@ router
     .put(
         isLoggedIn,
         isCampgroundAuthor,
+        upload.array("image"),
+        checkImagesLength,
         validateCampground,
         catchAsync(campgroundControllers.putEditCampground)
     )
     .delete(
         isLoggedIn,
         isCampgroundAuthor,
+        deleteImages,
         catchAsync(campgroundControllers.deleteOneCampground)
     );
 
