@@ -64,13 +64,36 @@ async function isReviewAuthor(req, res, next) {
     res.redirect(`/campgrounds/${id}`);
 }
 
+const deleteEditPageImages = async (req, res, next) => {
+    // deleting images which have been checked (on the edit page):
+    const id = req.params.id;
+    const camp = await Campground.findById(id);
+    const deleteImages = req.body.deleteImages;
+    if (
+        deleteImages &&
+        deleteImages.length === camp.images.length &&
+        req.files.length === 0
+    ) {
+        req.flash("error", "Campground should have atleast one image");
+        return res.redirect(`/campgrounds/${id}/edit`);
+    } else if (deleteImages) {
+        await camp.updateOne({
+            $pull: { images: { filename: { $in: deleteImages } } },
+        });
+        for (let imgName of deleteImages) {
+            await s3Delete(imgName);
+        }
+        next();
+    }
+};
+
 const checkImagesLength = async (req, res, next) => {
     const id = req.params.id;
     const camp = await Campground.findById(id);
     if (camp) {
         if (camp.images.length + req.files.length > 5) {
             req.flash("error", "Max no. of images allowed is 5");
-            res.redirect(`/campgrounds/${id}/edit`);
+            return res.redirect(`/campgrounds/${id}/edit`);
         } else {
             next();
         }
@@ -100,6 +123,7 @@ module.exports = {
     isLoggedIn,
     isCampgroundAuthor,
     isReviewAuthor,
+    deleteEditPageImages,
     checkImagesLength,
     deleteImages,
 };
