@@ -1,6 +1,5 @@
 const { s3Upload, s3Delete } = require("../aws");
 const Campground = require("../models/campground");
-const AppError = require("../utils/AppError");
 const mapboxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapboxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mapboxGeocoding({ accessToken: mapboxToken });
@@ -73,18 +72,21 @@ const getEditCampground = async (req, res, next) => {
     });
 };
 
-//! images are not getting pushed to the camp.images array
 const putEditCampground = async (req, res, next) => {
     const { id } = req.params;
     const camp = await Campground.findById(id);
-    const result = await s3Upload(req.files);
-    const ans = result.map((file) => ({
-        url: file.Location,
-        filename: file.Key.split("/")[1],
-    }));
-    for (let a of ans) {
-        camp.images.push(a);
+
+    if (req.files) {
+        const result = await s3Upload(req.files);
+        const ans = result.map((file) => ({
+            url: file.Location,
+            filename: file.Key.split("/")[1],
+        }));
+        for (let a of ans) {
+            camp.images.push(a);
+        }
     }
+
     const geoData = await geocoder
         .forwardGeocode({
             query: req.body.campground.location,
