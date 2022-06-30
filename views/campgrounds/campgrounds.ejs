@@ -1,23 +1,25 @@
 <%- layout('./layouts/boilerplate') %>
     <h1>All Campgrounds</h1>
     <p>Total campgrounds: <%= total %></p>
-    <% for (let c of campgrounds){ %>
-        <div class="card" id="card">
-            <div class="row">
-                <% for (let img of c.images){ %>
-                    <div class="col-md-3">
-                        <img src="<%= img.url %>" alt="campground image" class="img-fluid" id="camp-image">
-                    </div>
-                    <% break; %>
-                <% } %>
-                <div class="col-md-8">
-                    <div class="card-body" id="card-body">
-                        <h5 class="card-title"><%= c.title %></h5>
-                        <p class="card-text"><%= c.description %></p>
-                        <small class="text-muted"><%= c.location %></small>
-                        <a href="/campgrounds/<%= c._id %>" class="btn btn-primary btn-sm">View</a>
+    <div class="all-campgrounds">
+        <% for (let c of campgrounds){ %>
+            <div class="card" id="card">
+                <div class="row">
+                    <% for (let img of c.images){ %>
+                        <div class="col-md-3">
+                            <img src="<%= img.url %>" alt="campground image" class="img-fluid" id="camp-image">
+                        </div>
+                        <% break; %>
+                    <% } %>
+                    <div class="col-md-8">
+                        <div class="card-body" id="card-body">
+                            <h5 class="card-title"><%= c.title %></h5>
+                            <p class="card-text"><%= c.description %></p>
+                            <small class="text-muted"><%= c.location %></small>
+                            <a href="/campgrounds/<%= c._id %>" class="btn btn-primary btn-sm">View</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <% } %>
+            <% } %>
+    </div>
