@@ -74,7 +74,7 @@ const deleteEditPageImages = async (req, res, next) => {
         deleteImages.length === camp.images.length &&
         req.files.length === 0
     ) {
-        req.flash("error", "Campground should have atleast one image");
+        req.flash("error", "Campground should have at least one image");
         return res.redirect(`/campgrounds/${id}/edit`);
     } else if (deleteImages) {
         await camp.updateOne({
