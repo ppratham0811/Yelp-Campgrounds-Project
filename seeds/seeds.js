@@ -29,7 +29,7 @@ const createNewUser = async (email, username, password) => {
 const seedDB = async () => {
     await Campground.deleteMany({});
     await Review.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 400; i++) {
         const price = Math.floor(Math.random() * 5000 + 1000);
         const random1000 = Math.floor(Math.random() * 1000);
         const lenPlaces = places.length;
