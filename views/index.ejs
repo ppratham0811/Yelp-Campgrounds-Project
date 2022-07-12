@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Yelp Camp</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/home.css">
 </head>
+
 <body>
-    <nav>
-        <h1>Yelp Camp</h1>
-        <ul>
-            <li>Login/Signup</li>
-            <li>View Campgrounds</li>
-        </ul>
+    <nav id="main-page-nav">
+        <h3>YelpCamp</h3>
+        <div>
+            <a href="#" class="active-link">Home</a>
+            <a href="/campgrounds">Campgrounds</a>
+            <% if (!req.user) { %>
+                <a href="/yelp/login">Login</a>
+                <a href="/yelp/register">Register</a>
+                <% } %>
+        </div>
     </nav>
-    <main class="container">
-        <a href="/campgrounds">View all campgrounds</a>
+
+    <main class="main-content">
+        <h1>YelpCamp</h1>
+        <p>Welcome to YelpCamp</p>
+        <p>Discover Campgrounds</p>
+        <p>MongoDB, NodeJS and ExpressJS Project</p>
+        <a href="/campgrounds" class="btn btn-secondary bg-white">View All Campgrounds</a>
     </main>
+
     <footer>
-        <span>&copy;2022-23 Yelp Camp - Prathamesh Potabatti</span>
-        <span><a href="https://github.com/ppratham0811/Yelp-Campgrounds-Project">View Source code</a></span>
+        <div>
+            <small>Contact me:</small>
+            <a href="https://github.com/ppratham0811" target="_blank"><img src="/github.png" alt="blah"></a>
+            <a href="https://www.linkedin.com/in/prathamesh-potabatti/" target="_blank"><img src="/linkedin.png" alt="blah"></a>
+        </div>
+        <small>&copy;2022-23 Prathamesh Potabatti YelpCamp</small>
+        <a href="https://github/ppratham0811/Yelp-Campgrounds-Project">view source code</a>
     </footer>
 </body>
+<script src="/js/bootstrap.min.js"></script>
+
 </html>
