@@ -70,6 +70,7 @@ const deleteEditPageImages = async (req, res, next) => {
     const camp = await Campground.findById(id);
     const deleteImages = req.body.deleteImages;
     if (
+        camp &&
         deleteImages &&
         deleteImages.length === camp.images.length &&
         req.files.length === 0
@@ -83,8 +84,8 @@ const deleteEditPageImages = async (req, res, next) => {
         for (let imgName of deleteImages) {
             await s3Delete(imgName);
         }
-        next();
     }
+    next();
 };
 
 const checkImagesLength = async (req, res, next) => {
