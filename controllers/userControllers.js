@@ -35,13 +35,11 @@ const postLoginForm = (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-    const username = req.user.username;
     req.logout(function (err) {
         if (err) {
             return next(err);
         }
-        req.flash("info", `See you soon, ${username}!`);
-        res.redirect("/campgrounds");
+        res.redirect("/");
     });
 };
 
