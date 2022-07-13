@@ -19,7 +19,9 @@
             <% if (!req.user) { %>
                 <a href="/yelp/login">Login</a>
                 <a href="/yelp/register">Register</a>
-                <% } %>
+            <% } else { %>
+                <a href="/logout">Logout</a>
+            <% } %>
         </div>
     </nav>
 
