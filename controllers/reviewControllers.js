@@ -15,7 +15,7 @@ const postReview = async (req, res) => {
 const deleteReview = async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, {
-        $pull: { reveiws: reviewId },
+        $pull: { reviews: reviewId },
     });
     await Review.findByIdAndDelete(reviewId);
     req.flash("info", "Review deleted successfully");
