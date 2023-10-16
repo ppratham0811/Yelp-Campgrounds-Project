@@ -4,9 +4,9 @@ const uuid = require("uuid").v4;
 const s3 = new S3();
 
 aws.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID_PRATHAM,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_PRATHAM,
-  region: process.env.AWS_REGION_PRATHAM,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
 });
 
 module.exports.s3Upload = async (files) => {
